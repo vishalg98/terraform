@@ -64,7 +64,7 @@ jobs:
     - name: Terraform Init
       run: terraform init
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.YES_TOKEN }}
         TF_ACTION_WORKING_DIR: '.'
         AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
