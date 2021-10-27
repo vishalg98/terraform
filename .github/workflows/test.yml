@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Who started build
+        run: echo "Release build started by ${{ github.actor }} on branch ${{ github.ref }}"
+        
       - name: Clone Git repository
         uses: actions/checkout@v2
         with:
