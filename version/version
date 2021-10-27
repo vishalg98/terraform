@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+CURRENT_BRANCH=$(git branch --show-current)
+RELEASE_ROOT=$(basename $CURRENT_BRANCH)
+
+LAST_TAG=$(git tag --merged HEAD --sort=version:refname -l "$RELEASE_ROOT*" | tail -1)
+if [[ ${#LAST_TAG} == 0 ]]
+then
+  RELEASE_NUMBER="$RELEASE_ROOT.0"
+else
+  PATCH_NUMBER=$(echo $LAST_TAG | sed 's/.*\.//')
+  PATCH_NUMBER=$((PATCH_NUMBER + 1))
+  RELEASE_NUMBER="$RELEASE_ROOT.$PATCH_NUMBER"
+fi
+
+echo "$RELEASE_NUMBER"
