@@ -16,9 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Who started build
-        run: git update-index --chmod=+x /version/version
-        
       - name: Clone Git repository
         uses: actions/checkout@v2
         with:
