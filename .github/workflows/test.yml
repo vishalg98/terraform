@@ -19,7 +19,7 @@ jobs:
       - name: Clone Git repository
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.CI_GITHUB_TOKEN }}
+          token: ${{ secrets.YES_TOKEN  }}
           fetch-depth: 0
           
       - id: getVersion
