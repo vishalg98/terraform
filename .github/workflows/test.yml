@@ -1,0 +1,36 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+env:
+  PR_NUMBER: ${{ github.run_id }}
+        
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Clone Git repository
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.CI_GITHUB_TOKEN }}
+          fetch-depth: 0
+          
+      - id: getVersion
+        name: Get release version number
+        run: echo "::set-output name=releaseVersion::$(version/version)"
+      
+      - name: Show release version number
+        run: |
+          echo "Starting release version: ${{ steps.getVersion.outputs.releaseVersion }}"
+          
+      - name: Tag Release
+        run: |
+          git tag -a -m "Release ${{ steps.getVersion.outputs.releaseVersion }} [skip default]" ${{ steps.getVersion.outputs.releaseVersion }}
+          git push origin ${{ steps.getVersion.outputs.releaseVersion }}
